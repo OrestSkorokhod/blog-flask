@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Posts
+{% endblock %}
+
+{% block page_title %}
+My Blog
+{% endblock %}
+
+{% block subtitle %}
+	My flask-blog
+{% endblock %}
+
+{% block admin %}
+
+
+
+{% endblock %}
+
+{% block content %}
+
+  	{% for post in pages.items %}
+
+<div class="post-preview">
+                    <a href="{{ url_for('posts.post_detail', slug=post.slug) }}">
+                        <h2 class="post-title">
+                            {{ post.title }}
+                        </h2>
+                        <h3 class="post-subtitle">
+                            {{ post.subtitle }}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">
+                      {% for user in users %}
+                          {% if user.id==post.user_id %}
+                              {{ user.name }}
+                          {% else %}
+                          Unknown author
+                          {% endif %}
+                      {% endfor %}
+
+
+
+                    </a> on {{post.created}}</p>
+                </div>
+                <hr>
+  		
+  	{% endfor %}
+
+
+        <nav aria-label="Page navigation example">
+                              <ul class="pagination">
+                                <li class="page-item {% if not pages.has_prev %} disabled {% endif %}">
+                                 
+                                  <a class="page-link" href="./?page={{pages.prev_num}}">Previous</a>
+                               
+                                </li>
+                                {% for page in pages.iter_pages() %}
+                                <li class="page-item {% if page == pages.page %} active {% endif %}"><a class="page-link" href="./?page={{ page }}">{{ page }}</a></li>
+
+                                {% endfor %}
+
+                                <li class="page-item {% if not pages.has_next %} disabled {% endif %}">
+                                  <a class="page-link" href="./?page={{pages.next_num}}">Next</a>
+                                </li>
+                              </ul>
+        </nav>
+{% endblock %}

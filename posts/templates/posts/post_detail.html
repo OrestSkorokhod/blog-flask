@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ post.title }}
+{% endblock %}
+
+{% block page_title %}
+
+{{ post.title }}
+
+{% endblock %}
+
+{% block subtitle %}
+	<h2>{{ post.subtitle }}</h2>
+	<span class="meta">Posted by <a href="#">{{ user.name }}</a> on {{ post.created }}</span>
+{% endblock %}
+
+{% block content %}
+	 
+	 {{ post.body }}
+{% endblock %}
